@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {Route, HashRouter} from 'react-router-dom'
+import { Route, HashRouter } from 'react-router-dom'
 import Profile from './components/Profile'
 import Login from './components/Login';
 
@@ -11,7 +10,7 @@ class App extends Component {
       <div className="App">
         <HashRouter>
           <Route path='/profile' component={Profile} />
-          <Route exact path='/' component={Login} /> 
+          <Route exact path='/' component={Login} />
         </HashRouter>
       </div>
     );

@@ -1,21 +1,31 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import store, { UPDATE_USERNAME } from '../store'
 
 export default class Login extends Component {
     constructor() {
         super();
         this.state = {
-            username: '',
-            password: ''
+            username: store.getState().username
         }
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
     }
 
-    handleUsernameChange(e) {
-        this.setState({
-            username: e.target.value
+    componentDidMount() {
+        store.subscribe(() => {
+            this.setState({
+                username: store.getState().username
+            })
         })
+    }
+
+    handleUsernameChange(e) {
+        let action = {
+            payload: e.target.value,
+            type: UPDATE_USERNAME
+        }
+        store.dispatch(action)
     }
 
     handlePasswordChange(e) {
@@ -25,10 +35,10 @@ export default class Login extends Component {
     }
 
     render() {
-        return(
+        return (
             <div>
-                <input placeholder='Username' onChange={this.handleUsernameChange}/>
-                <input placeholder='Password' onChange={this.handlePasswordChange}/>
+                <input placeholder='Username' onChange={this.handleUsernameChange} />
+                <input placeholder='Password' onChange={this.handlePasswordChange} />
                 <Link to='/profile'>Log in</Link>
             </div>
         )
